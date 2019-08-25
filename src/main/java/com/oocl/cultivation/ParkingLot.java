@@ -16,6 +16,32 @@ public class ParkingLot {
     }
 
     public int getAvailableParkingPosition() {
-        return cars.size() - capacity;
+        return capacity - cars.size();
     }
+    
+    public ParkingTicket park(Car car) {
+    	if(cars.size() < capacity) {
+    		ParkingTicket ticket = new ParkingTicket();
+        	cars.put(ticket, car);
+        	return ticket;
+    	}else {
+    		return null;
+		}
+	}
+    
+    public Car findCar(ParkingTicket parkingTicket) {
+    	Car car = new Car();
+    	if(cars.containsKey(parkingTicket)) {
+    		car = cars.get(parkingTicket);
+    	}else {
+    		 car = null;
+		}
+    	cars.remove(parkingTicket);
+    	return car;
+    }
+    
+    public boolean isValidTicket(ParkingTicket parkingTicket) {
+    	return cars.containsKey(parkingTicket);
+    }
+    
 }
